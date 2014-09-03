@@ -9,6 +9,20 @@ var polyeth = function(eth) {
     return false;
   }
 
+
+  if (typeof window.env.note !== 'undefined') {
+    console.log = function(){
+      var args = Array.prototype.slice.call(arguments, 0);
+      env.note( args.map( function(arg){
+        return arg.toString();
+      }).join(' ') );
+    }
+
+    window.onerror = function(err) {
+      console.log( "Error: ", err )
+    }
+  }
+
   var clients = {
 
     // ethos: checkClient( eth ) == 'ethos' && mocketh,
