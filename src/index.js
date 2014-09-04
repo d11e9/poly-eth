@@ -1,8 +1,3 @@
-var eth = {
-  test: 1,
-  watch: function(){}
-}
-
 var polyeth = function(eth) {
 
   var checkClient = function(eth) {
