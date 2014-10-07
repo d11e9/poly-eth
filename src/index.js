@@ -8,7 +8,7 @@ var polyeth = function(eth) {
     if (UA.match( 'Aleth' )) return 'aleth';
     if (UA.match( 'Ethereal')) return 'ethereal';
     if (UA.match( 'Ethos')) return 'ethos'; 
-    return false;
+    return 'ethos';
   }
 
   // new poly-eth default APIs. will be overwitten if the method or 
