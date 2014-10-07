@@ -34,7 +34,7 @@ var polyeth = function(eth) {
       eth: eth,
       client: 'ethereal',
       getKey: function(cb){
-        cosnole.log( 'Polyeth ethereal getKey...' )
+        console.log( 'Polyeth ethereal getKey...' )
         eth.key.then( function(key){ cb.apply( this, [null, key] ) }, function(err){ cb.apply( this, [err, null] ) } ) 
       }
     },
@@ -53,6 +53,10 @@ var polyeth = function(eth) {
       transact: function(options, cb){
         console.log( 'Polyeth ethos transact...' )
         eth.transact( options )
+      },
+      block: function(num, cb){
+        console.log( 'Polyeth ethos block...' )
+        eth.block(num).then( function(block){ cb.apply( this, [null, block] ) }, function(err){ cb.apply( this, [err, null] ) } )
       }
     }
 
@@ -60,7 +64,7 @@ var polyeth = function(eth) {
 
   // TODO: This will no longer throw errors when mocketh etc are available.
   if (!eth) throw new Error( 'No Ethereum client.' );
-  else return _.extend( clients[ checkClient( eth ) ], _.extend( polyEth, clients[ checkClient( eth ) ].eth ) );
+  else return _.extend( polyEth, clients[ checkClient( eth ) ].eth, clients[ checkClient( eth ) ] );
 };
 
 
