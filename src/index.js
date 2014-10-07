@@ -7,7 +7,7 @@ var polyeth = function(eth) {
     var UA = window.navigator.userAgent;
     if (UA.match( 'Aleth' )) return 'aleth';
     if (UA.match( 'Ethereal')) return 'ethereal';
-    if (UA.match( 'Ethos')) return 'ethereal'; 
+    if (UA.match( 'Ethos')) return 'ethos'; 
     return false;
   }
 
@@ -33,8 +33,29 @@ var polyeth = function(eth) {
     ethereal: checkClient( eth ) == 'ethereal' && {
       eth: eth,
       client: 'ethereal',
-      getKey: function(cb){ eth.key.then( cb ) }
+      getKey: function(cb){
+        cosnole.log( 'Polyeth ethereal getKey...' )
+        eth.key.then( function(key){ cb.apply( this, [null, key] ) }, function(err){ cb.apply( this, [err, null] ) } ) 
+      }
+    },
+
+    ethos: checkClient( eth ) == 'ethos' && {
+      eth: eth,
+      client: 'ethos',
+      getKey: function(cb){
+        console.log( 'Polyeth ethos getKey...' )
+        eth.key.then( function(key){ cb.apply( this, [null, key] ) }, function(err){ cb.apply( this, [err, null] ) } ) 
+      },
+      stateAt: function(addr, storageAddr, cb){
+        console.log( 'Polyeth ethos stateAt...' )
+        eth.stateAt(addr, storageAddr).then( function(value){ cb.apply( this, [null, value] ) }, function(err){ cb.apply( this, [err, null] ) } )
+      },
+      transact: function(options, cb){
+        console.log( 'Polyeth ethos transact...' )
+        eth.transact( options )
+      }
     }
+
   }
 
   // TODO: This will no longer throw errors when mocketh etc are available.
